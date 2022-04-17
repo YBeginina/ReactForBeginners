@@ -30,10 +30,31 @@
 
 .delButton{
     border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
-    border-style: solid;
     border-width: 1px;
+    border-radius: 5px;
     padding: 1px 7px 2px;
     font: 400 11px system-ui;
     float: right;
 }
 
+.divFilterButtons{
+    text-align: center;
+}
+
+.filterButton{
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 1px 7px 2px;
+    font: 400 13px system-ui;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.filterButton:active{
+    background-color: antiquewhite;
+}
+
+Button:hover{
+    background-color: #9cbecc;
+}
