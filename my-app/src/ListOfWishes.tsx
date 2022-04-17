@@ -1,6 +1,6 @@
 import React from 'react';
 import {titleOfList} from './data';
-
+import l from './ListOfWishes.module.css';
 
 export type WishesType = {
     id: string
@@ -16,28 +16,28 @@ export const ListOfWishes = (props:ArrOfWishesPropsType) => {
 
     const eachWish = props.wishes.map(w => {
         return (
-            <li key={w.id}>
+            <li className={l.wish} key={w.id}>
                 <input type="checkbox" checked={w.isDone}/>
-                <span>{w.wishTitle}</span>
-                <button>X</button>
+                <span className={l.wishName}>{w.wishTitle}</span>
+                <button className={l.delButton}>X</button>
             </li>
         )
     });
 
 
     return (
-      <>
-            <div>
+      <div className={l.wishList}>
+            <div className={l.title}>
                 {titleOfList}
             </div>
 
             <div>
-                <ul>
+                <ul className={l.list}>
                     {eachWish}
                 </ul>
             </div>
 
-      </>
+      </div>
     );
   }
 
