@@ -1,6 +1,4 @@
-import React from 'react';
-import {titleOfList} from './data';
-import l from './ListOfWishes.module.css';
+import cssL from './ListOfWishes.module.css';
 
 export type WishesType = {
     id: string
@@ -9,30 +7,36 @@ export type WishesType = {
 }
 
 export type ArrOfWishesPropsType = {
-    wishes: Array<WishesType>
+    title: string
+    wishes: WishesType[]
+    removeWish: (wishId: string) => void
 }
 
-export const ListOfWishes = (props:ArrOfWishesPropsType) => {
+
+function ListOfWishes(props:ArrOfWishesPropsType){
 
     const eachWish = props.wishes.map(w => {
+
+        const removeWishHandler = () => props.removeWish(w.id);
+
         return (
-            <li className={l.wish} key={w.id}>
+            <li className={cssL.wish} key={w.id}>
                 <input type="checkbox" checked={w.isDone}/>
-                <span className={l.wishName}>{w.wishTitle}</span>
-                <button className={l.delButton}>X</button>
+                <span className={cssL.wishName}>{w.wishTitle}</span>
+                <button className={cssL.delButton} onClick={removeWishHandler}>X</button>
             </li>
         )
     });
 
 
     return (
-      <div className={l.wishList}>
-            <div className={l.title}>
-                {titleOfList}
+      <div className={cssL.wishList}>
+            <div className={cssL.title}>
+                {props.title}
             </div>
 
             <div>
-                <ul className={l.list}>
+                <ul className={cssL.list}>
                     {eachWish}
                 </ul>
             </div>
@@ -41,3 +45,4 @@ export const ListOfWishes = (props:ArrOfWishesPropsType) => {
     );
   }
 
+  export default ListOfWishes;
