@@ -6,8 +6,8 @@
 
 .title {
     text-align: center;
-    font-weight: 800;
-    font-size: large;
+    font: 800 19px system-ui;
+    margin-bottom: 10px;
 }
 
 .list{
@@ -19,7 +19,8 @@
 .wish{
     padding-top: 3px;
     padding-bottom: 3px;
-    border-bottom: 1px dotted #9cbecc;;
+    border-bottom: 1px dotted #9cbecc;
+    font: 400 16px system-ui;
 }
 
 .wishName{
@@ -46,13 +47,13 @@
     border-width: 1px;
     border-radius: 5px;
     padding: 1px 7px 2px;
-    font: 400 13px system-ui;
+    font: 400 14px system-ui;
     margin-left: 3px;
     margin-right: 3px;
 }
 
-.filterButton:active{
-    background-color: antiquewhite;
+Button:active{
+    background-color: antiquewhite !important;
 }
 
 Button:hover{
@@ -61,4 +62,30 @@ Button:hover{
 
 .activeFilter {
     background-color: rgb(172, 201, 216);
+}
+
+.inputLine {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.input {
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 1px 5px 2px;
+    font: 400 15px system-ui;
+    width: 190px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.inputButton {
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 1px 7px 2px;
+    font: 400 14px system-ui;
+    float: right;
 }
