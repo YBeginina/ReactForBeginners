@@ -1,6 +1,6 @@
 .wishList{
     max-width: 300px;
-    background-color: rgb(255, 250, 227);
+    background-color: #fffae3;
     padding: 20px;
 }
 
@@ -14,6 +14,7 @@
     list-style-type: none;
     padding-inline-start: 20px;
     padding-inline-end: 20px;
+    min-height: 140px;
 }
 
 .wish{
@@ -30,7 +31,7 @@
 }
 
 .delButton{
-    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-color: #d8d8d8 #d1d1d1 #bababa;
     border-width: 1px;
     border-radius: 5px;
     padding: 1px 7px 2px;
@@ -43,7 +44,7 @@
 }
 
 .filterButton{
-    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-color: #d8d8d8 #d1d1d1 #bababa;
     border-width: 1px;
     border-radius: 5px;
     padding: 1px 7px 2px;
@@ -53,7 +54,7 @@
 }
 
 Button:active{
-    background-color: antiquewhite !important;
+    background-color: #faebd7 !important;
 }
 
 Button:hover{
@@ -61,7 +62,7 @@ Button:hover{
 }
 
 .activeFilter {
-    background-color: rgb(172, 201, 216);
+    background-color: #acc9d8;
 }
 
 .inputLine {
@@ -70,7 +71,7 @@ Button:hover{
 }
 
 .input {
-    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-color: #d8d8d8 #d1d1d1 #bababa;
     border-width: 1px;
     border-radius: 5px;
     padding: 1px 5px 2px;
@@ -82,7 +83,7 @@ Button:hover{
 }
 
 .inputButton {
-    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-color: #d8d8d8 #d1d1d1 #bababa;
     border-width: 1px;
     border-radius: 5px;
     padding: 1px 7px 2px;

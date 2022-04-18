@@ -1,6 +1,6 @@
+import { ChangeEvent } from 'react';
+import { FilterValuesType } from './App';
 import cssL from './ListOfWishes.module.css';
-
-export type FilterValuesType = 'All' | 'Realised' | 'Unrealized';
 
 export type WishesType = {
     id: string
@@ -14,6 +14,7 @@ export type ArrOfWishesPropsType = {
     filter: FilterValuesType
     removeWish: (wishId: string) => void
     changeFilter: (filter: FilterValuesType) => void
+    checkWishStatus: (wishId: string, isDone: boolean) => void
 }
 
 function ListOfWishes(props:ArrOfWishesPropsType){
@@ -54,12 +55,12 @@ function ListOfWishes(props:ArrOfWishesPropsType){
     wishesForRender.map(w => {
 
         const removeWishHandler = () => props.removeWish(w.id);
-
+        const checkWishHandler = (e: ChangeEvent<HTMLInputElement>) => props.checkWishStatus(w.id, e.currentTarget.checked)
         return (
             <li
             className={cssL.wish}
             key={w.id}>
-                <input type="checkbox" checked={w.isDone}/>
+                <input type="checkbox" checked={w.isDone} onChange={checkWishHandler}/>
                 <span className={cssL.wishName}>{w.wishTitle}</span>
                 <button className={cssL.delButton} onClick={removeWishHandler}>X</button>
             </li>

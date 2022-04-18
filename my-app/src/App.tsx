@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { titleOfList, wishesData } from './data';
-import ListOfWishes, { FilterValuesType } from './ListOfWishes';
+import ListOfWishes from './ListOfWishes';
 
+
+export type FilterValuesType = 'All' | 'Realised' | 'Unrealized';
 
 function App() {
 
-//Хук для рендеринга удаленных желаний
+//Hook for rendering deleted wishes
 const [wishes, setWishes] = useState(wishesData);
 
 const removeWish = (wishId: string) => {
@@ -13,11 +15,16 @@ const removeWish = (wishId: string) => {
 }
 
 
-//Хук для рендеринга фильтрации желаний
+//Hook for rendering filtered wishes
 const [filter, setFilter] = useState<FilterValuesType>('All');
 
 const changeFilter = (filter: FilterValuesType) => {
   setFilter(filter);
+}
+
+
+const checkWishStatus = (wishId: string, isDone: boolean) => {
+  setWishes(wishes.map(w => w.id === wishId ? {...w, isDone: isDone} : w))
 }
 
 
@@ -29,6 +36,7 @@ const changeFilter = (filter: FilterValuesType) => {
             filter={filter}
             removeWish={removeWish}
             changeFilter={changeFilter}
+            checkWishStatus={checkWishStatus}
         />
     </>
   );
