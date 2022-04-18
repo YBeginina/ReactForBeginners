@@ -25,7 +25,21 @@ function ListOfWishes(props:ArrOfWishesPropsType){
     const cssRealisedFilter = props.filter === 'Realised' ? `${cssL.activeFilter} ${cssL.filterButton}`: `${cssL.filterButton}`;
     const cssUnrealizedFilter = props.filter === 'Unrealized' ? `${cssL.activeFilter} ${cssL.filterButton}`: `${cssL.filterButton}`;
 
-    const eachWish = props.wishes.map(w => {
+    let wishesForRender: WishesType[];
+    switch (props.filter) {
+        case 'Realised':
+            wishesForRender = props.wishes.filter(w => w.isDone);
+            break;
+        case 'Unrealized':
+            wishesForRender = props.wishes.filter(w => !w.isDone);
+            break;
+        default:
+            wishesForRender = props.wishes;
+            break;
+    }
+
+    const eachWish = wishesForRender.length ?
+    wishesForRender.map(w => {
 
         const removeWishHandler = () => props.removeWish(w.id);
 
@@ -36,7 +50,8 @@ function ListOfWishes(props:ArrOfWishesPropsType){
                 <button className={cssL.delButton} onClick={removeWishHandler}>X</button>
             </li>
         )
-    });
+    }) :
+    <span>No wishes</span>
 
     return (
       <div className={cssL.wishList}>

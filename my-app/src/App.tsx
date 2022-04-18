@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { titleOfList, wishesData } from './data';
-import ListOfWishes, { FilterValuesType, WishesType } from './ListOfWishes';
+import ListOfWishes, { FilterValuesType } from './ListOfWishes';
 
 
 function App() {
@@ -20,25 +20,12 @@ const changeFilter = (filter: FilterValuesType) => {
   setFilter(filter);
 }
 
-let wishesForRender: WishesType[];
-switch (filter) {
-  case 'Realised':
-    wishesForRender = wishes.filter(w => w.isDone);
-    break;
-  case 'Unrealized':
-    wishesForRender = wishes.filter(w => !w.isDone);
-    break;
-  default:
-    wishesForRender = wishes;
-    break;
-}
-
 
   return (
     <>
         <ListOfWishes
             title={titleOfList}
-            wishes={wishesForRender}
+            wishes={wishes}
             filter={filter}
             removeWish={removeWish}
             changeFilter={changeFilter}
