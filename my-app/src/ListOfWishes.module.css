@@ -56,5 +56,9 @@
 }
 
 Button:hover{
-    background-color: #9cbecc;
+    background-color: #90afbd;
+}
+
+.activeFilter {
+    background-color: rgb(172, 201, 216);
 }

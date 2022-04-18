@@ -11,6 +11,7 @@ export type WishesType = {
 export type ArrOfWishesPropsType = {
     title: string
     wishes: WishesType[]
+    filter: FilterValuesType
     removeWish: (wishId: string) => void
     changeFilter: (filter: FilterValuesType) => void
 }
@@ -20,6 +21,9 @@ function ListOfWishes(props:ArrOfWishesPropsType){
     const filterWishHandler = (filter: FilterValuesType) => {
         return () => props.changeFilter(filter);
     }
+    const cssAllFilter = props.filter === 'All' ? `${cssL.activeFilter} ${cssL.filterButton}`: `${cssL.filterButton}`;
+    const cssRealisedFilter = props.filter === 'Realised' ? `${cssL.activeFilter} ${cssL.filterButton}`: `${cssL.filterButton}`;
+    const cssUnrealizedFilter = props.filter === 'Unrealized' ? `${cssL.activeFilter} ${cssL.filterButton}`: `${cssL.filterButton}`;
 
     const eachWish = props.wishes.map(w => {
 
@@ -45,9 +49,18 @@ function ListOfWishes(props:ArrOfWishesPropsType){
                 </ul>
             </div>
             <div className={cssL.divFilterButtons}>
-                <button className={cssL.filterButton} onClick={filterWishHandler('All')}>All</button>
-                <button className={cssL.filterButton} onClick={filterWishHandler('Realised')}>Realised</button>
-                <button className={cssL.filterButton} onClick={filterWishHandler('Unrealized')}>Unrealized</button>
+                <button
+                    className={cssAllFilter}
+                    onClick={filterWishHandler('All')}>All
+                </button>
+                <button
+                    className={cssRealisedFilter}
+                    onClick={filterWishHandler('Realised')}>Realised
+                </button>
+                <button
+                    className={cssUnrealizedFilter}
+                    onClick={filterWishHandler('Unrealized')}>Unrealized
+                </button>
             </div>
       </div>
     );

@@ -39,6 +39,7 @@ switch (filter) {
         <ListOfWishes
             title={titleOfList}
             wishes={wishesForRender}
+            filter={filter}
             removeWish={removeWish}
             changeFilter={changeFilter}
         />
