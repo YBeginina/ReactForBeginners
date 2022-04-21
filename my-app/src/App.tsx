@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { titleOfList, wishesData } from './data';
-import ListOfWishes from './ListOfWishes';
+import { titleOfList, wishesData } from './components/ListOfWishes/data';
+import ListOfWishes from './components/ListOfWishes/ListOfWishes';
 
 
 export type FilterValuesType = 'All' | 'Realised' | 'Unrealized';

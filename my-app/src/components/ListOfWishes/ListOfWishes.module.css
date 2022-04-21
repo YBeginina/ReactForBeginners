@@ -1,7 +1,11 @@
 .wishList{
-    max-width: 300px;
+    max-width: max-content;
     background-color: #fffae3;
     padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    border: 1px dotted #bababa;
 }
 
 .title {
@@ -22,6 +26,8 @@
     padding-bottom: 3px;
     border-bottom: 1px dotted #9cbecc;
     font: 400 16px system-ui;
+    width: 100%;
+    max-width: 350px;
 }
 
 .wishName{
