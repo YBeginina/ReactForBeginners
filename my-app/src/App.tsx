@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 } from 'uuid';
 import { titleOfList, wishesData } from './components/ListOfWishes/data';
 import ListOfWishes from './components/ListOfWishes/ListOfWishes';
 
@@ -24,9 +25,13 @@ const changeFilter = (filter: FilterValuesType) => {
 
 
 const checkWishStatus = (wishId: string, isDone: boolean) => {
-  setWishes(wishes.map(w => w.id === wishId ? {...w, isDone: isDone} : w))
+  setWishes(wishes.map(w => w.id === wishId ? {...w, isDone: isDone} : w));
 }
 
+
+const addWish = (title: string) => {
+  setWishes([{id: v4(), wishTitle: title, isDone: false},...wishes]);
+}
 
   return (
     <>
@@ -37,6 +42,7 @@ const checkWishStatus = (wishId: string, isDone: boolean) => {
             removeWish={removeWish}
             changeFilter={changeFilter}
             checkWishStatus={checkWishStatus}
+            addWish={addWish}
         />
     </>
   );

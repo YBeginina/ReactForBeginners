@@ -1,6 +1,6 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { FilterValuesType } from '../../App';
-import { getFilteredWishesForRender, getCssForFilter } from './FunctionsForListOfWishes';
+import { getFilteredWishesForRender, addCssForFilter } from './FunctionsForListOfWishes';
 import css from './ListOfWishes.module.css';
 
 export type WishesType = {
@@ -16,15 +16,36 @@ export type ArrOfWishesPropsType = {
     removeWish: (wishId: string) => void
     changeFilter: (filter: FilterValuesType) => void
     checkWishStatus: (wishId: string, isDone: boolean) => void
+    addWish: (title: string) => void
 }
 
 function ListOfWishes(props:ArrOfWishesPropsType){
+    //Hook for input for new wishes
+    const [title, setTitle] = useState<string>('');
+
+    const onChangeSetTitle = (e:ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value);
+    }
+
+    const onClickAddWish = () => {
+        const trimmedTitle = title.trim();
+        if (trimmedTitle) {
+        props.addWish(trimmedTitle);
+        }
+        setTitle('');
+    }
+
+    const onPressEnterAddWish = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onClickAddWish();
+        }
+    }
 
     const filterWishHandler = (filter: FilterValuesType) => {
         return () => props.changeFilter(filter);
     }
 
-    const wishesForRender: WishesType[] = getFilteredWishesForRender(props.wishes, props.filter)
+    const wishesForRender: WishesType[] = getFilteredWishesForRender(props.wishes, props.filter);
 
     const eachWish = wishesForRender.length ?
     wishesForRender.map(w => {
@@ -38,7 +59,7 @@ function ListOfWishes(props:ArrOfWishesPropsType){
             </li>
         )
     }) :
-    <span>No wishes</span>
+    <span>No wishes</span>;
 
     return (
       <div className={css.wishList}>
@@ -46,9 +67,14 @@ function ListOfWishes(props:ArrOfWishesPropsType){
                 {props.title}
             </div>
             <div className={css.inputLine}>
-                <input className={css.input}>
-                </input>
-                <button className={css.inputButton}>Add</button>
+                <input className={css.input}
+                    value={title}
+                    onChange={onChangeSetTitle}
+                    onKeyPress={onPressEnterAddWish}
+                />
+                <button className={css.inputButton}
+                    onClick={onClickAddWish}
+                >Add</button>
             </div>
             <div>
                 <ul className={css.list}>
@@ -57,15 +83,15 @@ function ListOfWishes(props:ArrOfWishesPropsType){
             </div>
             <div className={css.divFilterButtons}>
                 <button
-                    className={getCssForFilter('All', props.filter)}
+                    className={addCssForFilter('All', props.filter)}
                     onClick={filterWishHandler('All')}>All
                 </button>
                 <button
-                    className={getCssForFilter('Realised', props.filter)}
+                    className={addCssForFilter('Realised', props.filter)}
                     onClick={filterWishHandler('Realised')}>Realised
                 </button>
                 <button
-                    className={getCssForFilter('Unrealized', props.filter)}
+                    className={addCssForFilter('Unrealized', props.filter)}
                     onClick={filterWishHandler('Unrealized')}>Unrealized
                 </button>
             </div>

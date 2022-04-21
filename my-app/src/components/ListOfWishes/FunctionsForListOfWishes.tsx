@@ -18,11 +18,11 @@ export const getFilteredWishesForRender = (wishes: WishesType[], filter: FilterV
     return wishesForRender;
 }
 
-export const getCssForFilter = (pushedFilter:string, filter: FilterValuesType) => {
+export const addCssForFilter = (pushedFilter:string, filter: FilterValuesType) => {
     let cssForCheckedButton: string;
 
     if(pushedFilter === filter) {
-        cssForCheckedButton = `${css.filterButton} ${css.activeFilter}`
+        cssForCheckedButton = `${css.filterButton} ${css.activeFilter}`;
     }
         else {
             cssForCheckedButton = `${css.filterButton}`;
