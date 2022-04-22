@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { v4 } from 'uuid';
+import Counter from './components/Counter/Counter';
 import { titleOfList, wishesData } from './components/ListOfWishes/data';
 import ListOfWishes from './components/ListOfWishes/ListOfWishes';
 
@@ -33,7 +34,9 @@ const addWish = (title: string) => {
   setWishes([{id: v4(), wishTitle: title, isDone: false},...wishes]);
 }
 
-  return (
+let maxResult = 5;
+
+    return (
     <>
         <ListOfWishes
             title={titleOfList}
@@ -44,6 +47,9 @@ const addWish = (title: string) => {
             checkWishStatus={checkWishStatus}
             addWish={addWish}
         />
+
+        <Counter maxResult={maxResult} />
+
     </>
   );
 }

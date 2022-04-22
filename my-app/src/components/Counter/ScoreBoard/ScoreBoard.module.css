@@ -1,0 +1,18 @@
+.result {
+    text-align: center;
+    font: 800 19px system-ui;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.maxResult {
+    text-align: center;
+    font: 800 19px system-ui;
+    margin-bottom: 5px;
+    padding: 5px;
+    color: #0075ff;
+}
+
+
+
+

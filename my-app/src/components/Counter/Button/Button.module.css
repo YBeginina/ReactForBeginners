@@ -1,0 +1,17 @@
+.button{
+    border-color: #d8d8d8 #d1d1d1 #bababa;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 1px 7px 2px;
+    font: 400 14px system-ui;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+Button:active{
+    background-color: #faebd7 !important;
+}
+
+Button:hover{
+    background-color: #90afbd;
+}
