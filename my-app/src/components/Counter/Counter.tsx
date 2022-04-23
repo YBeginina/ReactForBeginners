@@ -19,9 +19,8 @@ function Counter (props: CounterPropsType){
 
     const plusOneHandler = () => plusOne(result);
 
-    const resetScoreBoard = () => {
-      setResult(0);
-    }
+    const resetScoreBoard = () => setResult(0);
+
     const resetScoreBoardHandler = () => resetScoreBoard();
 
     const disableAddButton = result === props.maxResult;

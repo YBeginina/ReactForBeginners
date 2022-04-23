@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { v4 } from 'uuid';
+import Calculator from './components/Calculator/Calculator';
 import Counter from './components/Counter/Counter';
 import { titleOfList, wishesData } from './components/ListOfWishes/data';
 import ListOfWishes from './components/ListOfWishes/ListOfWishes';
@@ -49,7 +50,7 @@ let maxResult = 5;
         />
 
         <Counter maxResult={maxResult} />
-
+        <Calculator />
     </>
   );
 }
