@@ -4,14 +4,15 @@ import { haveComa, isMaxString, mathFunction, haveEquals, haveMathSymbols, isEmp
 import ScoreBoard from "./ScoreBoard/ScoreBoard"
 import css from "./Calculator.module.css"
 
-
+//to do
 //добавить ввод с клавиатуры
+//добавить навигацию и раскидать компоненты
 //обработать ввод "." после получения результата вычисления
 //обработать результат вычисления с плавающей точкой
 //обрезать 0 вначале у чисел в формуле
 //обработать вывод очень больших и очень маленьких результатов вычислений
 //отображать целые с разрядами
-
+//если строка с формулой одна отображать снизу
 
 const numberButtons = [
     {id: 'b1', title: '1'},
