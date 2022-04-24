@@ -1,14 +1,20 @@
 
+export const isMaxString = (result: string) => {
+    let answer: boolean;
+    let arrOfNumbers = result.split('').filter(r => r !== '.');
+    answer = arrOfNumbers.length === 16;
+    return answer;
+};
+
 export const isComa = (result: string) => {
     let arrResult = result.split('');
-    return arrResult.includes(',');
-}
+    return arrResult.includes('.');
+};
 
 export const disableSymbolButton = (mathSymbol: string) => {
     return mathSymbol !== '';
-}
+};
 
-//проработать плавающую запятую, чтоб корректно считалось
 export const mathFunction = (tempFirstNumber: string, tempSecondNumber: string, tempMathSymbol: string) => {
     let mathResult: string = '';
     let firstNumber = Number(tempFirstNumber);
@@ -35,4 +41,5 @@ export const mathFunction = (tempFirstNumber: string, tempSecondNumber: string, 
     }
 
     return mathResult;
-}
+};
+

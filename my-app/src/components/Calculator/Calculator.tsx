@@ -1,11 +1,12 @@
 import { useState } from "react"
 import Button from "./Button/Button";
-import { disableSymbolButton, isComa, mathFunction } from "./ScoreBoard/FunctionsCalculator";
+import { disableSymbolButton, isComa, isMaxString, mathFunction } from "./ScoreBoard/FunctionsCalculator";
 import ScoreBoard from "./ScoreBoard/ScoreBoard"
 
-//ограничить ввод на целые и дробные
-//добавить ресет
 //добавить стили
+//добавить ввод с клавиатуры
+//обработать вывод очень больших и очень маленьких результатов вычислений
+//отображать целые с разрядами
 
 const numberButtons = [
     {id: 'b1', title: '1'},
@@ -19,7 +20,7 @@ const numberButtons = [
     {id: 'b9', title: '9'},
     {id: 'b0', title: '0'}
 ];
-const comaButton = {id: 'b10', title: ','};
+const comaButton = {id: 'b10', title: '.'};
 
 const mathSymbolButtons = [
     {id: 'b11', title: '+'},
@@ -28,6 +29,7 @@ const mathSymbolButtons = [
     {id: 'b14', title: '/'},
 ];
 const equalButton = {id: 'b15', title: '='};
+const resetButton = {id: 'b16', title: 'c'};
 
 let tempFirstNumber = '';
 let tempSecondNumber = '';
@@ -37,7 +39,11 @@ function Calculator () {
 
 const [result, setResult] = useState<string>('');
 
-const addNumber = (titleOfButton: string) => setResult(result + titleOfButton);
+const addNumber = (titleOfButton: string) => {
+    if (!isMaxString(result)) {
+        setResult(result + titleOfButton);
+    }
+};
 const addComaHandler = () => addNumber(comaButton.title);
 
 const returnEqualHandler = () => {
@@ -45,14 +51,22 @@ const returnEqualHandler = () => {
     tempSecondNumber = result;
     const tempResult = mathFunction(tempFirstNumber, tempSecondNumber, tempMathSymbol);
     setResult(tempResult);
-}
+};
+
+const resetScoreBoardHandler = () => {
+    tempFirstNumber = '';
+    tempSecondNumber = '';
+    tempMathSymbol = '';
+    setResult('');
+    setMathSymbol('');
+};
 
 const [mathSymbol, setMathSymbol] = useState<string>('');
 
 const showMathSymbol = (titleOfButton: string) => {
     setMathSymbol(titleOfButton);
     tempFirstNumber = result;
-}
+};
 
 const eachNumberButton = numberButtons.map(n => {
     const addNumberHandler = () => {
@@ -73,11 +87,11 @@ const eachNumberButton = numberButtons.map(n => {
                 />
             </div>
         )
-})
+});
 
 const eachMathSymbolButton = mathSymbolButtons.map(m => {
     const showMathSymbolHandler = () => showMathSymbol(m.title);
-    if (mathSymbol === '') {
+    if (mathSymbol === '' || mathSymbol === '=') {
         return (
             <div key={m.id}>
                 <Button
@@ -98,27 +112,27 @@ const eachMathSymbolButton = mathSymbolButtons.map(m => {
             </div>
         )
     }
-})
+});
 
 
 return (
     <>
         <div>
             <ScoreBoard
-                value={result}
+                value={mathSymbol}
             />
         </div>
         <div>
             <ScoreBoard
-                value={mathSymbol}
+                value={result}
             />
         </div>
-        {/* <div>
+        <div>
             <Button
-                title="c"
-                onClickFunction={}
+                title={resetButton.title}
+                onClickFunction={resetScoreBoardHandler}
             />
-        </div> */}
+        </div>
         <div key={comaButton.id}>
                 <Button
                     title={comaButton.title}
@@ -135,7 +149,6 @@ return (
                 />
         </div>
     </>
-)
-}
+)};
 
 export default Calculator;

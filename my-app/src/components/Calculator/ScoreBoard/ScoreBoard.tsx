@@ -1,7 +1,7 @@
 
 export type ScoreBoardPropsType = {
     value: string
-}
+};
 
 
 function ScoreBoard (props: ScoreBoardPropsType) {
@@ -12,7 +12,6 @@ return (
             {props.value}
         </div>
     </>
-)
-}
+)};
 
 export default ScoreBoard;

@@ -4,7 +4,7 @@ export type ButtonPropsType = {
     onClickFunction: () => void
     onPressFunction?: () => void
     disableCase?: boolean
-}
+};
 
 function Button (props: ButtonPropsType) {
 
@@ -16,7 +16,6 @@ return (
             {props.title}
         </button>
     </>
-)
-}
+)};
 
 export default Button;
