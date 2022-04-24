@@ -1,4 +1,4 @@
-
+import css from './Button.module.css';
 export type ButtonPropsType = {
     title: string
     onClickFunction: () => void
@@ -10,11 +10,11 @@ function Button (props: ButtonPropsType) {
 
 return (
     <>
-        <button disabled={props.disableCase}
+        <button className={css.button}
+        disabled={props.disableCase}
         onKeyPress={props.onPressFunction}
-        onClick={props.onClickFunction}>
-            {props.title}
-        </button>
+        onClick={props.onClickFunction}
+        >{props.title}</button>
     </>
 )};
 

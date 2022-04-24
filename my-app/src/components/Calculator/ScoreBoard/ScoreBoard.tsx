@@ -8,9 +8,7 @@ function ScoreBoard (props: ScoreBoardPropsType) {
 
 return (
     <>
-        <div>
-            {props.value}
-        </div>
+        {props.value}
     </>
 )};
 
