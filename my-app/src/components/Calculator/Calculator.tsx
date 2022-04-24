@@ -1,10 +1,9 @@
 import { useState } from "react"
 import Button from "./Button/Button";
-import { disableSymbolButton, isComa, isMaxString, mathFunction } from "./FunctionsCalculator";
+import { disableSymbolButton, haveComa, isMaxString, mathFunction, haveEquals } from "./FunctionsCalculator";
 import ScoreBoard from "./ScoreBoard/ScoreBoard"
 import css from "./Calculator.module.css"
 
-//добавить стили
 //добавить ввод с клавиатуры
 //обработать вывод очень больших и очень маленьких результатов вычислений
 //отображать целые с разрядами
@@ -38,120 +37,108 @@ let tempMathSymbol = '';
 
 function Calculator () {
 
-const [result, setResult] = useState<string>('');
+    const [result, setResult] = useState<string>('');
 
-const addNumber = (titleOfButton: string) => {
-    if (!isMaxString(result)) {
-        setResult(result + titleOfButton);
-    }
-};
-const addComaHandler = () => addNumber(comaButton.title);
-
-const returnEqualsHandler = () => {
-    setMathSymbol(equalsButton.title);
-    tempSecondNumber = result;
-    const tempResult = mathFunction(tempFirstNumber, tempSecondNumber, tempMathSymbol);
-    setResult(tempResult);
-};
-
-const resetScoreBoardHandler = () => {
-    tempFirstNumber = '';
-    tempSecondNumber = '';
-    tempMathSymbol = '';
-    setResult('');
-    setMathSymbol('');
-};
-
-const [mathSymbol, setMathSymbol] = useState<string>('');
-
-const showMathSymbol = (titleOfButton: string) => {
-    setMathSymbol(titleOfButton);
-    tempFirstNumber = result;
-};
-
-const eachNumberButton = numberButtons.map(n => {
-    const addNumberHandler = () => {
-        if (mathSymbol === '') {
-            addNumber(n.title);
+    const addNumber = (titleOfButton: string) => {
+        if (!isMaxString(result)) {
+            setResult(result + titleOfButton);
         }
-        else {
-            setResult(n.title);
-            tempMathSymbol = mathSymbol;
-            setMathSymbol('');
-        }
-    }
-        return (
-            <div className={css[`${n.id}`]}>
-                <Button
-                    title={n.title}
-                    onClickFunction={addNumberHandler}
-                />
-            </div>
-        )
-});
+    };
+    const addComaHandler = () => addNumber(comaButton.title);
 
-const eachMathSymbolButton = mathSymbolButtons.map(m => {
-    const showMathSymbolHandler = () => showMathSymbol(m.title);
-    if (mathSymbol === '' || mathSymbol === '=') {
-        return (
-            <div className={css[`${m.id}`]}>
-                <Button
-                    title={m.title}
-                    onClickFunction={showMathSymbolHandler}
-                />
-            </div>
-        )
-    }
-    else {
-        return (
-            <div className={css[`${m.id}`]}>
-                <Button
-                    title={m.title}
-                    onClickFunction={showMathSymbolHandler}
-                    disableCase={disableSymbolButton(mathSymbol)}
-                />
-            </div>
-        )
-    }
-});
+    const returnEqualsHandler = () => {
+        tempSecondNumber = result;
+        setFormula(`${tempFirstNumber} ${tempMathSymbol} ${tempSecondNumber} ${equalsButton.title}`);
+        const tempResult = mathFunction(tempFirstNumber, tempSecondNumber, tempMathSymbol);
+        setResult(tempResult);
+        tempMathSymbol = '';
+    };
 
+    const resetScoreBoardHandler = () => {
+        tempFirstNumber = '';
+        tempSecondNumber = '';
+        tempMathSymbol = '';
+        setResult('');
+        setFormula('');
+    };
 
-return (
-    <>
-        <div className={css.container}>
-            <div className={css.mathSymbol}>
-                <ScoreBoard
-                    value={mathSymbol}
-                />
-            </div>
-            <div className={css.scoreBoard}>
-                <ScoreBoard
-                    value={result}
-                />
-            </div>
-            <div className={css[`${resetButton.id}`]}>
-                <Button
-                    title={resetButton.title}
-                    onClickFunction={resetScoreBoardHandler}
-                />
-            </div>
-            {eachNumberButton}
-            <div className={css[`${comaButton.id}`]}>
+    const [formula, setFormula] = useState<string>('');
+
+    const eachNumberButton = numberButtons.map(n => {
+        const addNumberHandler = () => {
+            if (haveEquals(formula)){
+                setFormula('');
+                setResult(n.title);
+            }
+            else {
+                addNumber(n.title);
+            }
+        };
+            return (
+                <div className={css[`${n.id}`]}>
                     <Button
-                        title={comaButton.title}
-                        onClickFunction={addComaHandler}
-                        disableCase={isComa(result)}
+                        title={n.title}
+                        onClickFunction={addNumberHandler}
                     />
-            </div>
-            {eachMathSymbolButton}
-            <div className={css[`${equalsButton.id}`]}>
+                </div>
+            )
+    });
+
+    const eachMathSymbolButton = mathSymbolButtons.map(m => {
+        const setMathSymbolHandler = () => {
+            tempFirstNumber = result;
+            tempMathSymbol = m.title;
+            setFormula(`${tempFirstNumber} ${tempMathSymbol}`);
+            setResult('');
+        };
+            return (
+                <div className={css[`${m.id}`]}>
                     <Button
-                        title={equalsButton.title}
-                        onClickFunction={returnEqualsHandler}
+                        title={m.title}
+                        onClickFunction={setMathSymbolHandler}
+                        disableCase={disableSymbolButton(tempMathSymbol)}
                     />
+                </div>
+            )
+    });
+
+
+    return (
+        <>
+            <div className={css.container}>
+                <div className={css.mathSymbol}>
+                    <ScoreBoard
+                        value={formula}
+                    />
+                </div>
+                <div className={css.scoreBoard}>
+                    <ScoreBoard
+                        value={result}
+                    />
+                </div>
+                <div className={css[`${resetButton.id}`]}>
+                    <Button
+                        title={resetButton.title}
+                        onClickFunction={resetScoreBoardHandler}
+                    />
+                </div>
+                {eachNumberButton}
+                <div className={css[`${comaButton.id}`]}>
+                        <Button
+                            title={comaButton.title}
+                            onClickFunction={addComaHandler}
+                            disableCase={haveComa(result)}
+                        />
+                </div>
+                {eachMathSymbolButton}
+                <div className={css[`${equalsButton.id}`]}>
+                        <Button
+                            title={equalsButton.title}
+                            onClickFunction={returnEqualsHandler}
+                        />
+                </div>
             </div>
-        </div>
-    </>
-)};
+        </>
+    )};
 
 export default Calculator;

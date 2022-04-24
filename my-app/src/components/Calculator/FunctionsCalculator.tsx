@@ -6,13 +6,18 @@ export const isMaxString = (result: string) => {
     return answer;
 };
 
-export const isComa = (result: string) => {
+export const haveComa = (result: string) => {
     let arrResult = result.split('');
     return arrResult.includes('.');
 };
 
-export const disableSymbolButton = (mathSymbol: string) => {
-    return mathSymbol !== '';
+export const haveEquals = (formula: string) => {
+    let arrFormula = formula.split('');
+    return arrFormula.includes('=');
+};
+
+export const disableSymbolButton = (tempMathSymbol: string) => {
+    return tempMathSymbol !== '';
 };
 
 export const mathFunction = (tempFirstNumber: string, tempSecondNumber: string, tempMathSymbol: string) => {
