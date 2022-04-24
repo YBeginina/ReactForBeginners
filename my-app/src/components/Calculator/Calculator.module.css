@@ -5,7 +5,7 @@
     margin-right: auto;
     margin-top: 3%;
     border: 1px dotted #bababa;
-    width: max-content;
+    width: 161px;
     display: grid;
     grid-template-areas:
     'reset formula formula formula'
@@ -25,19 +25,20 @@
     border: 1px solid #bababa;
     border-radius: 5px;
     padding: 2px 5px 1px;
-    margin: 5px 0px;
+    margin-bottom: 5px;
 }
 
 .formula {
     grid-area: formula;
     text-align: right;
-    padding-top: 4px;
-
     padding-right: 1px;
+    font: 400 13px system-ui;
+    height: 34px;
 }
 
 .reset {
     grid-area: reset;
+    padding-top: 3px;
 }
 
 .b1 {

@@ -34,7 +34,7 @@ const mathSymbolButtons = [
     {id: 'divisionSign', title: '/'},
 ];
 const equalsButton = {id: 'equals', title: '='};
-const resetButton = {id: 'reset', title: 'c'};
+const resetButton = {id: 'reset', title: 'C'};
 
 let tempFirstNumber = '';
 let tempSecondNumber = '';
@@ -92,7 +92,7 @@ function Calculator () {
             }
         };
             return (
-                <div className={css[`${n.id}`]}>
+                <div key={n.id} className={css[`${n.id}`]}>
                     <Button
                         title={n.title}
                         onClickFunction={addNumberHandler}
@@ -119,7 +119,7 @@ function Calculator () {
             }
         };
             return (
-                <div className={css[`${m.id}`]}>
+                <div key={m.id} className={css[`${m.id}`]}>
                     <Button
                         title={m.title}
                         onClickFunction={setMathSymbolHandler}

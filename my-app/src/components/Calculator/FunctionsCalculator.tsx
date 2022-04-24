@@ -26,7 +26,7 @@ export const haveMathSymbols = (formula: string) => {
 
 export const isEmpty = (result: string) => {
     return result === '';
-}
+};
 
 export const mathFunction = (tempFirstNumber: string, tempSecondNumber: string, tempMathSymbol: string) => {
     let mathResult: string = '';
