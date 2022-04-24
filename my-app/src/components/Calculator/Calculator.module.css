@@ -8,7 +8,7 @@
     width: max-content;
     display: grid;
     grid-template-areas:
-    'reset mathS mathS mathS'
+    'reset formula formula formula'
     'scoreB scoreB scoreB scoreB'
     'b1 b2 b3 plus'
     'b4 b5 b6 minus'
@@ -28,8 +28,8 @@
     margin: 5px 0px;
 }
 
-.mathSymbol {
-    grid-area: mathS;
+.formula {
+    grid-area: formula;
     text-align: right;
     padding-top: 4px;
 

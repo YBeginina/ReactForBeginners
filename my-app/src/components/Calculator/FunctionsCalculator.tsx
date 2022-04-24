@@ -16,9 +16,17 @@ export const haveEquals = (formula: string) => {
     return arrFormula.includes('=');
 };
 
-export const disableSymbolButton = (tempMathSymbol: string) => {
-    return tempMathSymbol !== '';
+export const haveMathSymbols = (formula: string) => {
+    let arrFormula = formula.split('');
+    return arrFormula.includes('+') ||
+            arrFormula.includes('-') ||
+            arrFormula.includes('/') ||
+            arrFormula.includes('*');
 };
+
+export const isEmpty = (result: string) => {
+    return result === '';
+}
 
 export const mathFunction = (tempFirstNumber: string, tempSecondNumber: string, tempMathSymbol: string) => {
     let mathResult: string = '';
@@ -47,4 +55,3 @@ export const mathFunction = (tempFirstNumber: string, tempSecondNumber: string, 
 
     return mathResult;
 };
-

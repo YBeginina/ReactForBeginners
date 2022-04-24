@@ -1,12 +1,17 @@
 import { useState } from "react"
 import Button from "./Button/Button";
-import { disableSymbolButton, haveComa, isMaxString, mathFunction, haveEquals } from "./FunctionsCalculator";
+import { haveComa, isMaxString, mathFunction, haveEquals, haveMathSymbols, isEmpty } from "./FunctionsCalculator";
 import ScoreBoard from "./ScoreBoard/ScoreBoard"
 import css from "./Calculator.module.css"
 
+
 //добавить ввод с клавиатуры
+//обработать ввод "." после получения результата вычисления
+//обработать результат вычисления с плавающей точкой
+//обрезать 0 вначале у чисел в формуле
 //обработать вывод очень больших и очень маленьких результатов вычислений
 //отображать целые с разрядами
+
 
 const numberButtons = [
     {id: 'b1', title: '1'},
@@ -38,13 +43,21 @@ let tempMathSymbol = '';
 function Calculator () {
 
     const [result, setResult] = useState<string>('');
+    const [formula, setFormula] = useState<string>('');
 
-    const addNumber = (titleOfButton: string) => {
+    const addCharToResult = (titleOfButton: string) => {
         if (!isMaxString(result)) {
             setResult(result + titleOfButton);
         }
     };
-    const addComaHandler = () => addNumber(comaButton.title);
+    const addComaHandler = () => {
+        if (isEmpty(result)) {
+            addCharToResult(`0${comaButton.title}`);
+        }
+        else {
+            addCharToResult(comaButton.title);
+        }
+    };
 
     const returnEqualsHandler = () => {
         tempSecondNumber = result;
@@ -54,6 +67,11 @@ function Calculator () {
         tempMathSymbol = '';
     };
 
+    const disableCaseEqualsButton =
+        (isEmpty(result) && haveMathSymbols(formula)) ||
+        isEmpty(formula) ||
+        (!isEmpty(formula) && !isEmpty(result) && tempMathSymbol === '');
+
     const resetScoreBoardHandler = () => {
         tempFirstNumber = '';
         tempSecondNumber = '';
@@ -62,7 +80,6 @@ function Calculator () {
         setFormula('');
     };
 
-    const [formula, setFormula] = useState<string>('');
 
     const eachNumberButton = numberButtons.map(n => {
         const addNumberHandler = () => {
@@ -71,7 +88,7 @@ function Calculator () {
                 setResult(n.title);
             }
             else {
-                addNumber(n.title);
+                addCharToResult(n.title);
             }
         };
             return (
@@ -84,29 +101,38 @@ function Calculator () {
             )
     });
 
+    const disableCaseSymbolButton =
+        (isEmpty(result) && isEmpty(formula)) ||
+        (!isEmpty(result) && !isEmpty(formula) && !haveEquals(formula));
+
     const eachMathSymbolButton = mathSymbolButtons.map(m => {
         const setMathSymbolHandler = () => {
-            tempFirstNumber = result;
-            tempMathSymbol = m.title;
-            setFormula(`${tempFirstNumber} ${tempMathSymbol}`);
-            setResult('');
+            if (tempMathSymbol === '') {
+                tempFirstNumber = result;
+                tempMathSymbol = m.title;
+                setFormula(`${tempFirstNumber} ${tempMathSymbol}`);
+                setResult('');
+            }
+            else {
+                tempMathSymbol = m.title;
+                setFormula(`${tempFirstNumber} ${tempMathSymbol}`);
+            }
         };
             return (
                 <div className={css[`${m.id}`]}>
                     <Button
                         title={m.title}
                         onClickFunction={setMathSymbolHandler}
-                        disableCase={disableSymbolButton(tempMathSymbol)}
+                        disableCase={disableCaseSymbolButton}
                     />
                 </div>
             )
     });
 
-
     return (
         <>
             <div className={css.container}>
-                <div className={css.mathSymbol}>
+                <div className={css.formula}>
                     <ScoreBoard
                         value={formula}
                     />
@@ -135,6 +161,7 @@ function Calculator () {
                         <Button
                             title={equalsButton.title}
                             onClickFunction={returnEqualsHandler}
+                            disableCase={disableCaseEqualsButton}
                         />
                 </div>
             </div>
