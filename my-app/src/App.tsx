@@ -1,24 +1,28 @@
 import { useState } from 'react';
 import { v4 } from 'uuid';
-import Calculator from './components/Calculator/Calculator';
-import Counter from './components/Counter/Counter';
-import { titleOfList, wishesData } from './components/ListOfWishes/data';
-import ListOfWishes from './components/ListOfWishes/ListOfWishes';
+import TodoList from './components/TodoList/TodoList';
 
 
-export type FilterValuesType = 'All' | 'Realised' | 'Unrealized';
+export type FilterValuesType = 'All' | 'Done' | 'Undone';
+const titleOfList = 'To do list';
 
 function App() {
 
-//Hook for rendering deleted wishes
-const [wishes, setWishes] = useState(wishesData);
+//Hook for rendering deleted tasks
+const [tasks, setTasks] = useState([
+  {id: v4(), title: 'Learn JS', isDone: true},
+  {id: v4(), title: 'Learn React', isDone: false},
+  {id: v4(), title: 'Learn TypeScript', isDone: false},
+  {id: v4(), title: 'Learn CSS', isDone: false},
+  {id: v4(), title: 'Learn HTML', isDone: false}
+]);
 
-const removeWish = (wishId: string) => {
-  setWishes(wishes.filter((w: { id: string; }) => w.id !== wishId));
+const removeTask = (taskId: string) => {
+  setTasks(tasks.filter((t: { id: string; }) => t.id !== taskId));
 }
 
 
-//Hook for rendering filtered wishes
+//Hook for rendering filtered tasks
 const [filter, setFilter] = useState<FilterValuesType>('All');
 
 const changeFilter = (filter: FilterValuesType) => {
@@ -26,31 +30,29 @@ const changeFilter = (filter: FilterValuesType) => {
 }
 
 
-const checkWishStatus = (wishId: string, isDone: boolean) => {
-  setWishes(wishes.map(w => w.id === wishId ? {...w, isDone: isDone} : w));
+const checkTaskStatus = (taskId: string, isDone: boolean) => {
+  setTasks(tasks.map(t => t.id === taskId ? {...t, isDone: isDone} : t));
 }
 
 
-const addWish = (title: string) => {
-  setWishes([{id: v4(), wishTitle: title, isDone: false},...wishes]);
+const addTask = (title: string) => {
+  setTasks([{id: v4(), title: title, isDone: false},...tasks]);
 }
 
-let maxResult = 5;
 
     return (
     <>
-        <ListOfWishes
+        <TodoList
             title={titleOfList}
-            wishes={wishes}
+            tasks={tasks}
             filter={filter}
-            removeWish={removeWish}
+            removeTask={removeTask}
             changeFilter={changeFilter}
-            checkWishStatus={checkWishStatus}
-            addWish={addWish}
+            checkTaskStatus={checkTaskStatus}
+            addTask={addTask}
         />
 
-        <Counter maxResult={maxResult} />
-        <Calculator />
+
     </>
   );
 }

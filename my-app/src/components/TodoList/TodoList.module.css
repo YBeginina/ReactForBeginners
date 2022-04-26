@@ -1,4 +1,4 @@
-.wishList{
+.taskList{
     max-width: max-content;
     background-color: #fffae3;
     padding: 20px;
@@ -21,7 +21,7 @@
     min-height: 140px;
 }
 
-.wish{
+.task{
     padding-top: 3px;
     padding-bottom: 3px;
     border-bottom: 1px dotted #9cbecc;
@@ -30,7 +30,7 @@
     max-width: 350px;
 }
 
-.wishName{
+.taskName{
     padding-left: 10px;
     padding-right: 10px;
     text-align: left;
