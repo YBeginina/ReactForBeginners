@@ -51,8 +51,6 @@ const addTask = (title: string) => {
             checkTaskStatus={checkTaskStatus}
             addTask={addTask}
         />
-
-
     </>
   );
 }
